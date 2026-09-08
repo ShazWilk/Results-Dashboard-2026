@@ -1,55 +1,147 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="2026 Municipal Election Results dashboard.">
-  <title>2026 Municipal Election Results</title>
-  <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/css/styles.css">
-  <script defer src="assets/vendor/bootstrap/bootstrap.bundle.min.js"></script>
-  <script defer src="assets/js/components.js"></script>
-  <script defer src="assets/js/main.js"></script>
-</head>
-<body>
-  <a class="skip-link" href="#main">Skip to results</a>
-  <header id="site-header" class="election-header"></header>
-  <aside id="site-navigation" class="navigation-rail" aria-label="Dashboard navigation"></aside>
-  <main id="main" class="dashboard container-fluid">
-    <div class="row dashboard-row g-0">
-      <div class="col-12 col-lg-4 summary-column">
-        <section class="summary-panel" aria-label="Election overview" tabindex="0">
-          <div class="progress-heading d-flex align-items-center">
-            <img class="year-art" src="assets/images/2026.png" alt="2026">
-            <div class="progress-title"><span>Local Government Elections</span><h2>Results Progress</h2></div>
-            <div class="completion"><strong>87%</strong><span>complete</span></div>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="2026 Municipal Election Results dashboard.">
+    <title>2026 Municipal Election Results</title>
+    <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script defer src="assets/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+    <script defer src="assets/js/components.js"></script>
+    <script defer src="assets/js/main.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to results</a>
+    <header id="site-header" class="election-header">
+    </header>
+    <aside id="site-navigation" class="navigation-rail" aria-label="Dashboard navigation">
+    </aside>
+    <aside class="offcanvas offcanvas-start search-sidebar" tabindex="-1" id="search-sidebar" aria-labelledby="search-sidebar-title" data-bs-backdrop="false" data-bs-scroll="true">
+      <button class="search-close" type="button" data-bs-dismiss="offcanvas" aria-label="Close search">×</button>
+      <form id="results-search-form" class="search-form">
+        <div class="search-election">
+          <label class="visually-hidden" for="search-election-year">Election year</label>
+          <select class="form-select" id="search-election-year" name="election"><option value="2021">2021 Elections</option></select>
+        </div>
+        <h2 id="search-sidebar-title">Find Results</h2>
+        <div class="id-search">
+          <label class="visually-hidden" for="search-id">Search by ID Number</label>
+          <input class="form-control" id="search-id" name="idNumber" type="text" inputmode="numeric" pattern="[0-9]{13}" maxlength="13" title="Enter a 13-digit ID number" placeholder="Search by ID Number" autocomplete="off">
+          <button type="submit" class="id-search-button" aria-label="Find results"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="8"></circle><path d="m16 16 6 6"></path></svg></button>
+        </div>
+        <div class="search-filters">
+          <label class="visually-hidden" for="search-province">Province</label>
+          <select class="form-select" id="search-province" name="province">
+            <option value="">Select Province</option>
+            <option>Eastern Cape</option><option>Free State</option><option>Gauteng</option><option>KwaZulu-Natal</option><option>Limpopo</option><option>Mpumalanga</option><option>North West</option><option>Northern Cape</option><option>Western Cape</option>
+          </select>
+          <label class="visually-hidden" for="search-municipality">Municipality</label>
+          <select class="form-select" id="search-municipality" name="municipality" aria-describedby="search-data-status" disabled><option value="">Select Municipality</option></select>
+          <label class="visually-hidden" for="search-party">Party abbreviation</label>
+          <input class="form-control" id="search-party" name="party" type="text" placeholder="Enter Party Abbreviation" autocomplete="off">
+        </div>
+        <button class="search-reset" type="reset">Reset Filters</button>
+        <p class="search-data-status" id="search-data-status" role="status" hidden>
+        </p>
+      </form>
+    </aside>
+    <main id="main" class="dashboard container-fluid">
+      <div class="row dashboard-row g-0">
+        <div class="col-12 col-lg-4 summary-column">
+          <section class="summary-panel" aria-label="Election overview" tabindex="0">
+            <div class="progress-heading d-flex align-items-center">
+              <img class="year-art" src="assets/images/2026.png" alt="2026">
+              <div class="progress-title"><span>Local Government Elections</span>
+                <h2>Results Progress</h2>
+              </div>
+              <div class="completion"><strong>87%</strong><span>complete</span>
+              </div>
+            </div>
+            <div class="progress election-progress" role="progressbar" aria-label="Votes counted" aria-valuenow="87" aria-valuemin="0" aria-valuemax="100">
+              <div class="progress-bar">
+              </div><img class="progressbar-logo" src="assets/images/progressbar_logo.png" alt="IEC South Africa">
+            </div>
+            <p class="results-notice"><span class="info-icon" aria-hidden="true">i</span><span>Final Results will be published after all results are verified and confirmed.<br><button class="text-button" type="button" data-bs-toggle="collapse" data-bs-target="#results-information" aria-expanded="false" aria-controls="results-information">Read More</button></span>
+            </p>
+            <div class="collapse" id="results-information">
+              <p class="notice-details">Results displayed here are provisional until verification and confirmation are complete.</p>
+            </div>
+            <section class="leading-card" aria-labelledby="leading-title">
+              <h2 id="leading-title">Leading Party</h2>
+              <div class="lead-margin">Leading by 23.93%<br>over <span>DA</span>
+              </div>
+              <div class="leading-result"><img class="party-logo-slot" src="assets/images/anc.png" alt="" width="51" height="51">
+                <div>
+                  <h3>ANC</h3>
+                  <p><strong>45.59%</strong> <span>of valid votes</span>
+                  </p>
+                </div>
+              </div>
+            </section>
+            <nav class="row row-cols-2 row-cols-sm-4 action-grid" aria-label="Results tools">
+              <div class="col"><button class="action-tile" disabled>View Map<img class="action-icon" src="assets/images/map_icon.png" alt=""></button>
+              </div>
+              <div class="col"><button class="action-tile" disabled>Compare<br>Parties<img class="action-icon" src="assets/images/compare_parties_icon.png" alt=""></button>
+              </div>
+              <div class="col"><button class="action-tile" disabled>Historical<br>Results<img class="action-icon" src="assets/images/historical_icon.png" alt=""></button>
+              </div>
+              <div class="col"><button class="action-tile" disabled>Downloads<img class="action-icon" src="assets/images/downloads_icon.png" alt=""></button>
+              </div>
+            </nav>
+            <section class="top-parties" aria-labelledby="top-parties-title">
+              <div class="d-flex align-items-center justify-content-between top-parties-heading">
+                <h2 id="top-parties-title">Top Parties National</h2><button class="text-button" disabled>View All</button>
+              </div>
+              <div class="table-responsive">
+                <table class="table national-table mb-0">
+                  <thead>
+                    <tr>
+                      <th scope="col">Party</th>
+                      <th scope="col">% Support</th>
+                      <th scope="col">Votes</th>
+                      <th scope="col">Seats</th>
+                      <th scope="col">Change</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row"><span class="party-identity"><span class="party-dot party-anc"></span><span class="small-logo-slot" aria-hidden="true"></span>ANC</span>
+                      </th>
+                      <td>44.89%</td>
+                      <td>7 760 257</td>
+                      <td>6 387</td>
+                      <td class="change-down">▼ 3.58pp</td>
+                    </tr>
+                    <tr>
+                      <th scope="row"><span class="party-identity"><span class="party-dot party-da"></span><span class="small-logo-slot" aria-hidden="true"></span>DA</span>
+                      </th>
+                      <td>35.98%</td>
+                      <td>6 222 424</td>
+                      <td>2 598</td>
+                      <td class="change-up">▲ 2.74pp</td>
+                    </tr>
+                    <tr>
+                      <th scope="row"><span class="party-identity"><span class="party-dot party-ifp"></span><span class="small-logo-slot" aria-hidden="true"></span>IFP</span>
+                      </th>
+                      <td>8.44%</td>
+                      <td>1 458 256</td>
+                      <td>437</td>
+                      <td class="change-up">▲ 8.44pp</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </section>
+        </div>
+        <section class="col-12 col-lg-8 results-column" aria-label="Detailed election results">
+          <div id="results-table" class="results-table-space">
           </div>
-          <div class="progress election-progress" role="progressbar" aria-label="Votes counted" aria-valuenow="87" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar"></div><img class="progressbar-logo" src="assets/images/progressbar_logo.png" alt="IEC South Africa"></div>
-          <p class="results-notice"><span class="info-icon" aria-hidden="true">i</span><span>Final Results will be published after all results are verified and confirmed.<br><button class="text-button" type="button" data-bs-toggle="collapse" data-bs-target="#results-information" aria-expanded="false" aria-controls="results-information">Read More</button></span></p>
-          <div class="collapse" id="results-information"><p class="notice-details">Results displayed here are provisional until verification and confirmation are complete.</p></div>
-          <section class="leading-card" aria-labelledby="leading-title">
-            <h2 id="leading-title">Leading Party</h2><div class="lead-margin">Leading by 23.93%<br>over <span>DA</span></div>
-            <div class="leading-result"><span class="party-logo-slot" aria-hidden="true"></span><div><h3>ANC</h3><p><strong>45.59%</strong> <span>of valid votes</span></p></div></div>
-          </section>
-          <nav class="row row-cols-2 row-cols-sm-4 action-grid" aria-label="Results tools">
-            <div class="col"><button class="action-tile" disabled>View Map<img class="action-icon" src="assets/images/map_icon.png" alt=""></button></div>
-            <div class="col"><button class="action-tile" disabled>Compare<br>Parties<img class="action-icon" src="assets/images/compare_parties_icon.png" alt=""></button></div>
-            <div class="col"><button class="action-tile" disabled>Historical<br>Results<img class="action-icon" src="assets/images/historical_icon.png" alt=""></button></div>
-            <div class="col"><button class="action-tile" disabled>Downloads<img class="action-icon" src="assets/images/downloads_icon.png" alt=""></button></div>
-          </nav>
-          <section class="top-parties" aria-labelledby="top-parties-title">
-            <div class="d-flex align-items-center justify-content-between top-parties-heading"><h2 id="top-parties-title">Top Parties National</h2><button class="text-button" disabled>View All</button></div>
-            <div class="table-responsive"><table class="table national-table mb-0"><thead><tr><th scope="col">Party</th><th scope="col">% Support</th><th scope="col">Votes</th><th scope="col">Seats</th><th scope="col">Change</th></tr></thead><tbody>
-              <tr><th scope="row"><span class="party-identity"><span class="party-dot party-anc"></span><span class="small-logo-slot" aria-hidden="true"></span>ANC</span></th><td>44.89%</td><td>7 760 257</td><td>6 387</td><td class="change-down">▼ 3.58pp</td></tr>
-              <tr><th scope="row"><span class="party-identity"><span class="party-dot party-da"></span><span class="small-logo-slot" aria-hidden="true"></span>DA</span></th><td>35.98%</td><td>6 222 424</td><td>2 598</td><td class="change-up">▲ 2.74pp</td></tr>
-              <tr><th scope="row"><span class="party-identity"><span class="party-dot party-ifp"></span><span class="small-logo-slot" aria-hidden="true"></span>IFP</span></th><td>8.44%</td><td>1 458 256</td><td>437</td><td class="change-up">▲ 8.44pp</td></tr>
-            </tbody></table></div>
-          </section>
         </section>
       </div>
-      <section class="col-12 col-lg-8 results-column" aria-label="Detailed election results"><div id="results-table" class="results-table-space"></div></section>
-    </div>
-  </main>
-  <footer id="site-footer" class="statistics-bar"></footer>
-</body>
+    </main>
+    <footer id="site-footer" class="statistics-bar">
+    </footer>
+  </body>
 </html>

@@ -1,30 +1,68 @@
 # Municipal Election Results
 
-Responsive HTML5, Bootstrap 5, custom CSS, and vanilla JavaScript implementation of `design-reference/landing page.png`. Bootstrap assets are local; no build step is needed.
+Portable static front-end built with HTML5, Bootstrap 5.3.8, custom CSS, and vanilla JavaScript. All runtime assets are included locally. No npm packages, build step, Python runtime, GitHub account, or Codespaces environment is required to run the application.
 
-Run `python3 -m http.server 8000 --bind 0.0.0.0` and open port 8000 to preview.
+## Run after cloning
 
-- `index.html`: overview, progress, leading party, and national party summary.
-- `assets/css/styles.css`: dashboard layout and responsive styles.
-- `assets/js/components.js`: shared header, navigation rail, and statistics footer.
-- `assets/js/main.js`: reserved for data integration and page interactions.
-- `assets/images/`: supplied branding and navigation images.
-- `assets/vendor/`: local Bootstrap dependencies and their licenses.
+Clone the repository and serve its root with any static web server, or include it in your existing web application. Keep `index.html` and the `assets/` directory together. Opening `index.html` directly in a modern browser also works for the current static preview; use HTTP hosting when integrating APIs.
 
-The main results area (`#results-table`) is intentionally blank for future data integration. Party logo slots reserve space for the remaining supplied assets. Results tool tiles use the supplied map, compare parties, historical results, and downloads icons. Navigation and election selection are disabled until their destinations/data are available. Read More expands the provisional-results information.
+An optional preview command, if Python is installed, is:
 
-Displayed values and timestamps reproduce the reference and are static, not live election data.
+```sh
+python3 -m http.server 8000
+```
 
-## Publish to GitHub Pages
+On Windows, `py -m http.server 8000` is an alternative. Open the server address printed by your server in your browser. Port 8000 is only a preview choice, not an application dependency.
 
-The site is ready to publish directly from the repository root; no build command or dependencies are required. The root `.nojekyll` file bypasses Jekyll processing.
+## Project structure
 
-1. Commit and push the project, including `.nojekyll`, `index.html`, and the entire `assets/` directory, to your GitHub repository.
-2. Open the repository's **Settings → Pages**.
-3. Under **Build and deployment**, select **Deploy from a branch**.
-4. Select the branch containing the website (usually `main`), choose **/(root)**, and click **Save**.
-5. Wait for the Pages deployment to finish, then open the site URL shown in Pages settings. For a project repository, this is usually `https://<owner>.github.io/<repository>/`.
+- `index.html`: dashboard markup, search form, and static example results.
+- `assets/css/styles.css`: readable custom styles and responsive layout.
+- `assets/js/components.js`: creates the header, navigation rail, and footer.
+- `assets/js/main.js`: layout measurements, search drawer interactions, and placeholder search feedback.
+- `assets/images/`: supplied branding, party logo, and navigation images.
+- `assets/vendor/bootstrap/`: Bootstrap 5.3.8 CSS, JavaScript bundle (including Popper), and MIT license.
+- `design-reference/`: reference images for developers; not needed at runtime.
+- `.nojekyll`: optional GitHub Pages hosting marker; ignored by other servers.
 
-HTML and JavaScript-generated image and navigation paths are relative to the page. CSS font paths are relative to their stylesheet, and embedded CSS images use data URLs. Keep paths relative when adding assets so the site continues to work under a repository subdirectory. Use the exact filename capitalization because GitHub Pages paths are case-sensitive.
+Bootstrap Icons was unused and has been removed. Unavailable source-map references have been removed from the Bootstrap files; their executable code and CSS rules are unchanged. Preserve the bundled license when distributing Bootstrap.
 
-See [GitHub's publishing source documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site) for deployment settings.
+## Visual Studio / ASP.NET handover
+
+This is a front-end asset package, not a Visual Studio solution. Integrate it into the team's existing ASP.NET project; no Node tooling or additional front-end framework is needed.
+
+1. Copy `assets/` into the application's static content location (typically `wwwroot/assets/` in ASP.NET Core), with static asset serving enabled by the host project. For other ASP.NET project types, use the existing static content directory.
+2. Incorporate the page markup into a view or Razor page. If the application already provides a shared layout, keep only one document shell and load the styles and scripts once.
+3. Load Bootstrap CSS before `assets/css/styles.css`. Load scripts in this order: `bootstrap.bundle.min.js`, `components.js`, then `main.js`. Preserve `defer`, or load them after the page markup; do not use `async`.
+4. Resolve asset URLs using the host application's URL helpers when serving nested routes or a virtual application directory. For example, a Razor view can use `@Url.Content("~/assets/css/styles.css")`. Plain static HTML does not interpret `~` or Razor expressions.
+5. Update the `index.html` home links and image URLs inside `components.js` for the host's routes as well. Razor expressions are not evaluated inside external JavaScript files. Move this shared markup into Razor partials, or pass server-resolved URLs to the JavaScript. Keep the existing classes and IDs to preserve styling and behavior.
+6. If shared chrome is rendered by Razor instead, remove the corresponding rendering from `components.js` so it does not overwrite the server-rendered header, navigation, or footer. `main.js` safely skips search initialization when its required elements or Bootstrap are absent.
+7. Avoid loading a second copy of Bootstrap from the existing layout. The current UI uses Bootstrap 5 data attributes and its Offcanvas and Collapse components.
+
+All current image, stylesheet, script, and navigation paths are relative to the document. CSS image references are embedded data URLs. The existing structure works at a root or subdirectory when kept together; document-relative paths must be adapted when the host introduces nested routes. Preserve asset filename capitalization.
+
+## Backend and API integration remaining
+
+The page intentionally reproduces the supplied design and is not connected to live election data:
+
+- Percentages, counts, party names, leading margins, election labels, the LIVE badge, and timestamps are static values in `index.html` and `components.js`. Bind these to the backend's data model. The selected example election is 2021 while the title is 2026.
+- `#results-table` is intentionally blank. Render detailed results here.
+- `#results-search-form` includes election, ID number, province, municipality, and party fields. Province names are example option values; map them to the API's identifiers. Municipality options remain disabled until populated from data.
+- `main.js` prevents normal form submission and displays placeholder feedback. Replace that handler with the application's search integration and provide loading, empty, and error states. The current UI makes no API requests and does not store ID numbers. If this JavaScript is omitted or fails, native form submission defaults to GET; configure deliberate submission behavior before connecting the form to real ID lookup.
+- Search opens from the rail icon and supports close, Escape, outside-click dismissal, and reset. Read More uses Bootstrap Collapse.
+- Other navigation, results tools, View All, and the header election selector remain disabled pending integration. Remaining party logo slots are placeholders.
+- The progress fill and logo marker are deliberately fixed at 69% in CSS to match the reference, while the visible and accessible progress value is 87%. When connecting live data, explicitly decide how to synchronize these values; this handover preserves the reference appearance.
+
+Keep credentials and backend secrets on the server. There is no client-side environment configuration or API endpoint to replace. Local environment files, common Visual Studio output, and certificate containers are excluded by `.gitignore`; this does not replace review of files before committing.
+
+## Verification and handover
+
+Use a modern browser. Verify the dashboard at desktop and mobile widths and exercise search opening, closing, reset, and Read More after integration. Confirm asset requests also work at the actual application route and deployment prefix.
+
+The repository includes no automated build or test dependencies. JavaScript syntax can optionally be checked with `node --check assets/js/components.js` and `node --check assets/js/main.js`. Node is not needed to serve the site.
+
+Commit and push the complete handover, including the ANC image and design references, before developers clone it. Visual Studio execution and backend integration must be validated in the receiving project.
+
+## Optional GitHub Pages hosting
+
+GitHub Pages can serve the repository root directly without a build step. Keep `.nojekyll` for that hosting option. It is not needed for Visual Studio or other web servers, and `README.md` and `design-reference/` do not need to be published with the runtime site.

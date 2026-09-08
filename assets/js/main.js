@@ -12,3 +12,49 @@ if ('ResizeObserver' in window) {
 }
 updateChromeDimensions();
 // #results-table is intentionally empty for the data integration.
+
+const searchSidebar = document.getElementById('search-sidebar');
+const searchToggle = document.querySelector('[aria-controls="search-sidebar"]');
+const searchForm = document.getElementById('results-search-form');
+const searchStatus = document.getElementById('search-data-status');
+
+const searchId = document.getElementById('search-id');
+
+// Shared layouts may omit the search drawer entirely.
+if (searchSidebar && searchToggle && searchForm && searchStatus && searchId && window.bootstrap?.Offcanvas) {
+  searchSidebar.addEventListener('show.bs.offcanvas', () => {
+    searchToggle.setAttribute('aria-expanded', 'true');
+  });
+  searchSidebar.addEventListener('shown.bs.offcanvas', () => {
+    searchId.focus();
+  });
+  searchSidebar.addEventListener('hidden.bs.offcanvas', () => {
+    searchToggle.setAttribute('aria-expanded', 'false');
+    searchToggle.focus();
+  });
+  // A nonmodal panel keeps the dashboard available, including outside clicks.
+  document.addEventListener('click', (event) => {
+    if (searchSidebar.classList.contains('show') &&
+        !searchSidebar.contains(event.target) && !searchToggle.contains(event.target)) {
+      bootstrap.Offcanvas.getInstance(searchSidebar)?.hide();
+    }
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && searchSidebar.classList.contains('show')) {
+      bootstrap.Offcanvas.getInstance(searchSidebar)?.hide();
+    }
+  });
+  function showSearchDataStatus() {
+    searchStatus.textContent = 'Results search and municipality options will be available when election data is connected.';
+    searchStatus.hidden = false;
+  }
+  searchForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    showSearchDataStatus();
+  });
+  searchForm.addEventListener('change', showSearchDataStatus);
+  searchForm.addEventListener('reset', () => {
+    searchStatus.hidden = true;
+    searchStatus.textContent = '';
+  });
+}

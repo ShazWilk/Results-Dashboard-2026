@@ -2,3 +2,18 @@
 *.log
 __pycache__/
 node_modules/
+
+# Local IDE state and build output
+.vs/
+.vscode/
+[Bb]in/
+[Oo]bj/
+*.user
+*.suo
+
+# Local environment files and credentials
+.env
+.env.*
+!.env.example
+*.pfx
+*.p12
