@@ -17,7 +17,7 @@
     </header>
     <aside id="site-navigation" class="navigation-rail" aria-label="Dashboard navigation">
     </aside>
-    <aside class="offcanvas offcanvas-start search-sidebar" tabindex="-1" id="search-sidebar" aria-labelledby="search-sidebar-title" data-bs-backdrop="false" data-bs-scroll="true">
+    <aside class="offcanvas offcanvas-start dashboard-sidebar search-sidebar" tabindex="-1" id="search-sidebar" aria-labelledby="search-sidebar-title" data-bs-backdrop="false" data-bs-scroll="true">
       <button class="search-close" type="button" data-bs-dismiss="offcanvas" aria-label="Close search">×</button>
       <form id="results-search-form" class="search-form">
         <div class="search-election">
@@ -37,58 +37,148 @@
             <option>Eastern Cape</option><option>Free State</option><option>Gauteng</option><option>KwaZulu-Natal</option><option>Limpopo</option><option>Mpumalanga</option><option>North West</option><option>Northern Cape</option><option>Western Cape</option>
           </select>
           <label class="visually-hidden" for="search-municipality">Municipality</label>
-          <select class="form-select" id="search-municipality" name="municipality" aria-describedby="search-data-status" disabled><option value="">Select Municipality</option></select>
+          <select class="form-select" id="search-municipality" name="municipality" disabled><option value="">Select Municipality</option></select>
           <label class="visually-hidden" for="search-party">Party abbreviation</label>
           <input class="form-control" id="search-party" name="party" type="text" placeholder="Enter Party Abbreviation" autocomplete="off">
         </div>
         <button class="search-reset" type="reset">Reset Filters</button>
-        <p class="search-data-status" id="search-data-status" role="status" hidden>
-        </p>
       </form>
     </aside>
     <main id="main" class="dashboard container-fluid">
       <div class="row dashboard-row g-0">
         <div class="col-12 col-lg-4 summary-column">
           <section class="summary-panel" aria-label="Election overview" tabindex="0">
-            <div class="progress-heading d-flex align-items-center">
-              <img class="year-art" src="assets/images/2026.png" alt="2026">
-              <div class="progress-title"><span>Local Government Elections</span>
-                <h2>Results Progress</h2>
+            <section class="leading-parties" aria-labelledby="leading-title">
+              <div class="panel-heading"><h2 id="leading-title">South Africa <span>– Leading Party</span></h2><div class="map-view-label">View map by <span>Votes</span></div></div>
+              <div class="party-cards">
+            <section class="leading-card" aria-labelledby="leading-title">
+              <h3 class="party-card-label visually-hidden">Leading party</h3>
+              <div class="leading-result"><img class="party-logo-slot visually-hidden" src="assets/images/anc.png" alt="" width="51" height="51">
+                <div>
+                  <h3>ANC</h3>
+                  <p><strong>45.59%</strong> <span class="visually-hidden">of valid votes</span>
+                  </p>
+                </div>
               </div>
-              <div class="completion"><strong>87%</strong><span>complete</span>
+              <dl class="party-totals"><div><dt>Councils</dt><dd>167</dd></div><div><dt>Seats</dt><dd>4,548</dd></div><div><dt>Votes</dt><dd>10,699,300</dd></div></dl>
+            </section>
+                <article class="party-card party-card-da" aria-label="DA result">
+                  <div class="leading-result"><h3>DA</h3><p><strong>21.66%</strong><span class="visually-hidden">of valid votes</span></p></div>
+                  <dl class="party-totals"><div><dt>Councils</dt><dd>24</dd></div><div><dt>Seats</dt><dd>1,497</dd></div><div><dt>Votes</dt><dd>5,082,747</dd></div></dl>
+                </article>
+                <article class="party-card party-card-eff" aria-label="EFF result">
+                  <div class="leading-result"><h3>EFF</h3><p><strong>10.31%</strong><span class="visually-hidden">of valid votes</span></p></div>
+                  <dl class="party-totals"><div><dt>Councils</dt><dd>0</dd></div><div><dt>Seats</dt><dd>982</dd></div><div><dt>Votes</dt><dd>2,419,950</dd></div></dl>
+                </article>
               </div>
+            </section>
+            <!-- Replace the map preview with the real map; retain its location navigation. -->
+            <section class="results-map-container" aria-labelledby="map-title">
+              <div class="panel-heading visually-hidden"><h2 id="map-title">Results by area</h2><span class="sample-label">Map preview</span></div>
+              <div class="map-placeholder" role="img" aria-label="Illustrative South Africa map placeholder. Geographic results will appear here.">
+                <!-- Static schematic only: replace with the geographic map at integration. -->
+                <svg viewBox="0 0 800 560" aria-hidden="true" focusable="false">
+                  <defs>
+                    <path id="sa-outline" d="M65 290 77 281 83 293 105 308 131 305 165 295 189 292 189 157 211 175 219 200 246 210 275 202 292 179 309 181 345 195 374 197 402 176 408 154 437 143 446 116 477 95 493 69 526 58 536 43 559 40 579 47 604 46 629 52 641 87 647 111 659 132 659 161 649 179 650 201 630 197 619 218 623 240 649 250 666 248 670 232 692 237 691 250 719 250 708 283 700 314 679 341 652 365 637 395 607 415 573 439 545 455 510 471 467 480 425 485 389 501 351 508 319 508 288 526 259 532 233 523 216 505 202 486 188 470 181 450 163 427 158 399 139 378 120 352 100 342 84 322Z"/>
+                    <clipPath id="sa-clip"><use href="#sa-outline"/></clipPath>
+                    <pattern id="map-grid" width="24" height="22" patternUnits="userSpaceOnUse"><path d="M0 11 12 0 24 11 12 22Z" fill="none" stroke="#b2f395" stroke-width=".25"/></pattern>
+                  </defs>
+                  <use href="#sa-outline" fill="#12e500"/>
+                  <g clip-path="url(#sa-clip)">
+                    <path d="M150 447 204 436 222 465 265 458 291 477 341 468 369 486 389 501 340 543 223 545Z" fill="#ffed00"/>
+                    <path d="M606 283 637 265 663 270 670 232 731 229 710 314 666 342 636 338 620 317 594 314Z" fill="#ffcd94"/>
+                    <path d="M144 390 165 371 180 389 185 418 159 427Z M484 204 494 199 505 212 497 222Z M643 352 655 346 666 355 649 365Z" fill="#ffed00"/>
+                    <path d="M190 290 266 299 295 326 315 370 276 421 222 465M295 326 357 298 383 267 408 154M357 298 415 329 436 358 389 425 351 508M415 329 457 256 523 259 555 284 594 314M457 256 452 218 477 195 493 160 557 173 597 154 647 111M477 195 552 206 587 222 619 218M523 259 552 206M436 358 510 391 553 400 607 415M389 425 467 480" fill="none" stroke="#173617" stroke-width="1.5"/>
+                    <use href="#sa-outline" fill="url(#map-grid)"/>
+                  </g>
+                  <path d="M511 367 530 337 551 327 573 347 566 366 542 388 522 383Z" fill="#f8f9fa" stroke="#173617" stroke-width="1.5"/>
+                  <use href="#sa-outline" fill="none" stroke="#182819" stroke-width="1.8"/>
+                </svg>
+                <ul class="map-legend" aria-hidden="true"><li><i class="legend-da"></i>DA</li><li><i class="legend-anc"></i>ANC</li><li><i class="legend-ifp"></i>IFP</li><li><i class="legend-nfp"></i>NFP</li><li><i class="legend-icosa"></i>ICOSA</li><li><i class="legend-none"></i>No Result</li></ul>
+                <div class="placeholder-caption"><span class="placeholder-dot"></span>Map placeholder <span>Geographic results will appear here</span></div>
+              </div>
+              <nav class="map-location-bar" aria-label="Map location">
+                <a href="#">South Africa</a>
+                <span aria-hidden="true">›</span>
+                <a href="#">Western Cape</a>
+                <span aria-hidden="true">›</span>
+                <a href="#" aria-current="location">Cape Town Metro</a>
+              </nav>
+            </section>
+
+          </section>
+        </div>
+        <section class="col-12 col-lg-8 results-column results-table-container" aria-labelledby="table-title">
+          <div class="panel-heading visually-hidden"><h2 id="table-title">Party results</h2></div>
+          <!-- Replace this sibling preview with real results in #results-table. The integration target remains empty. -->
+          <div class="table-placeholder" role="img" aria-label="Results table placeholder, awaiting detailed party results.">
+            <div class="preview-table-head"><span>% Support<br>comparison</span><span>Party</span><span>Councils<br><small>Leading · Control</small></span><span>Seats</span><span>% Support</span></div>
+            <div class="preview-table-row" aria-hidden="true"><span class="preview-trend"><svg viewBox="0 0 120 30" aria-hidden="true"><path d="M5 24L30 18 58 20 86 11 115 5"/><circle cx="5" cy="24" r="3"/><circle cx="30" cy="18" r="3"/><circle cx="58" cy="20" r="3"/><circle cx="86" cy="11" r="3"/><circle cx="115" cy="5" r="3"/></svg></span><span class="preview-party"><i></i><b></b></span><span class="skeleton"></span><span class="skeleton"></span><span class="skeleton support-skeleton"></span></div>
+            <div class="preview-table-row" aria-hidden="true"><span class="preview-trend"><svg viewBox="0 0 120 30" aria-hidden="true"><path d="M5 24L30 18 58 20 86 11 115 5"/><circle cx="5" cy="24" r="3"/><circle cx="30" cy="18" r="3"/><circle cx="58" cy="20" r="3"/><circle cx="86" cy="11" r="3"/><circle cx="115" cy="5" r="3"/></svg></span><span class="preview-party"><i></i><b></b></span><span class="skeleton"></span><span class="skeleton"></span><span class="skeleton support-skeleton"></span></div>
+            <div class="preview-table-row" aria-hidden="true"><span class="preview-trend"><svg viewBox="0 0 120 30" aria-hidden="true"><path d="M5 24L30 18 58 20 86 11 115 5"/><circle cx="5" cy="24" r="3"/><circle cx="30" cy="18" r="3"/><circle cx="58" cy="20" r="3"/><circle cx="86" cy="11" r="3"/><circle cx="115" cy="5" r="3"/></svg></span><span class="preview-party"><i></i><b></b></span><span class="skeleton"></span><span class="skeleton"></span><span class="skeleton support-skeleton"></span></div>
+            <div class="preview-table-row" aria-hidden="true"><span class="preview-trend"><svg viewBox="0 0 120 30" aria-hidden="true"><path d="M5 24L30 18 58 20 86 11 115 5"/><circle cx="5" cy="24" r="3"/><circle cx="30" cy="18" r="3"/><circle cx="58" cy="20" r="3"/><circle cx="86" cy="11" r="3"/><circle cx="115" cy="5" r="3"/></svg></span><span class="preview-party"><i></i><b></b></span><span class="skeleton"></span><span class="skeleton"></span><span class="skeleton support-skeleton"></span></div>
+            <div class="preview-table-row" aria-hidden="true"><span class="preview-trend"><svg viewBox="0 0 120 30" aria-hidden="true"><path d="M5 24L30 18 58 20 86 11 115 5"/><circle cx="5" cy="24" r="3"/><circle cx="30" cy="18" r="3"/><circle cx="58" cy="20" r="3"/><circle cx="86" cy="11" r="3"/><circle cx="115" cy="5" r="3"/></svg></span><span class="preview-party"><i></i><b></b></span><span class="skeleton"></span><span class="skeleton"></span><span class="skeleton support-skeleton"></span></div>
+            <div class="preview-table-row" aria-hidden="true"><span class="preview-trend"><svg viewBox="0 0 120 30" aria-hidden="true"><path d="M5 24L30 18 58 20 86 11 115 5"/><circle cx="5" cy="24" r="3"/><circle cx="30" cy="18" r="3"/><circle cx="58" cy="20" r="3"/><circle cx="86" cy="11" r="3"/><circle cx="115" cy="5" r="3"/></svg></span><span class="preview-party"><i></i><b></b></span><span class="skeleton"></span><span class="skeleton"></span><span class="skeleton support-skeleton"></span></div>
+            <div class="preview-table-row" aria-hidden="true"><span class="preview-trend"><svg viewBox="0 0 120 30" aria-hidden="true"><path d="M5 24L30 18 58 20 86 11 115 5"/><circle cx="5" cy="24" r="3"/><circle cx="30" cy="18" r="3"/><circle cx="58" cy="20" r="3"/><circle cx="86" cy="11" r="3"/><circle cx="115" cy="5" r="3"/></svg></span><span class="preview-party"><i></i><b></b></span><span class="skeleton"></span><span class="skeleton"></span><span class="skeleton support-skeleton"></span></div>
+            <div class="preview-table-row" aria-hidden="true"><span class="preview-trend"><svg viewBox="0 0 120 30" aria-hidden="true"><path d="M5 24L30 18 58 20 86 11 115 5"/><circle cx="5" cy="24" r="3"/><circle cx="30" cy="18" r="3"/><circle cx="58" cy="20" r="3"/><circle cx="86" cy="11" r="3"/><circle cx="115" cy="5" r="3"/></svg></span><span class="preview-party"><i></i><b></b></span><span class="skeleton"></span><span class="skeleton"></span><span class="skeleton support-skeleton"></span></div>
+            <div class="preview-table-row" aria-hidden="true"><span class="preview-trend"><svg viewBox="0 0 120 30" aria-hidden="true"><path d="M5 24L30 18 58 20 86 11 115 5"/><circle cx="5" cy="24" r="3"/><circle cx="30" cy="18" r="3"/><circle cx="58" cy="20" r="3"/><circle cx="86" cy="11" r="3"/><circle cx="115" cy="5" r="3"/></svg></span><span class="preview-party"><i></i><b></b></span><span class="skeleton"></span><span class="skeleton"></span><span class="skeleton support-skeleton"></span></div>
+            <div class="preview-table-row" aria-hidden="true"><span class="preview-trend"><svg viewBox="0 0 120 30" aria-hidden="true"><path d="M5 24L30 18 58 20 86 11 115 5"/><circle cx="5" cy="24" r="3"/><circle cx="30" cy="18" r="3"/><circle cx="58" cy="20" r="3"/><circle cx="86" cy="11" r="3"/><circle cx="115" cy="5" r="3"/></svg></span><span class="preview-party"><i></i><b></b></span><span class="skeleton"></span><span class="skeleton"></span><span class="skeleton support-skeleton"></span></div>
+            <div class="preview-table-row" aria-hidden="true"><span class="preview-trend"><svg viewBox="0 0 120 30" aria-hidden="true"><path d="M5 24L30 18 58 20 86 11 115 5"/><circle cx="5" cy="24" r="3"/><circle cx="30" cy="18" r="3"/><circle cx="58" cy="20" r="3"/><circle cx="86" cy="11" r="3"/><circle cx="115" cy="5" r="3"/></svg></span><span class="preview-party"><i></i><b></b></span><span class="skeleton"></span><span class="skeleton"></span><span class="skeleton support-skeleton"></span></div>
+            <div class="preview-table-row" aria-hidden="true"><span class="preview-trend"><svg viewBox="0 0 120 30" aria-hidden="true"><path d="M5 24L30 18 58 20 86 11 115 5"/><circle cx="5" cy="24" r="3"/><circle cx="30" cy="18" r="3"/><circle cx="58" cy="20" r="3"/><circle cx="86" cy="11" r="3"/><circle cx="115" cy="5" r="3"/></svg></span><span class="preview-party"><i></i><b></b></span><span class="skeleton"></span><span class="skeleton"></span><span class="skeleton support-skeleton"></span></div>
+            <div class="preview-table-row" aria-hidden="true"><span class="preview-trend"><svg viewBox="0 0 120 30" aria-hidden="true"><path d="M5 24L30 18 58 20 86 11 115 5"/><circle cx="5" cy="24" r="3"/><circle cx="30" cy="18" r="3"/><circle cx="58" cy="20" r="3"/><circle cx="86" cy="11" r="3"/><circle cx="115" cy="5" r="3"/></svg></span><span class="preview-party"><i></i><b></b></span><span class="skeleton"></span><span class="skeleton"></span><span class="skeleton support-skeleton"></span></div>
+            <p class="table-placeholder-note">Detailed party results will appear here</p>
+          </div>
+          <div id="results-table" class="results-table-space"></div>
+        </section>
+      </div>
+    </main>
+    <aside class="offcanvas offcanvas-start dashboard-sidebar national-sidebar key-councils-sidebar" tabindex="-1" id="key-councils-sidebar" aria-labelledby="key-councils-sidebar-title" data-bs-backdrop="false" data-bs-scroll="true">
+      <button class="search-close" type="button" data-bs-dismiss="offcanvas" aria-label="Close key councils">×</button>
+      <div class="national-sidebar-content">
+        <h2 id="key-councils-sidebar-title" tabindex="-1">Key Councils</h2>
+        <section class="top-parties" aria-labelledby="key-councils-sidebar-title">
+          <p class="visually-hidden" id="key-councils-note">Illustrative data only, not election results. Majority is the seat threshold; gap shows seats above or short of that threshold.</p>
+          <div class="table-responsive" role="region" tabindex="0" aria-label="Councils to watch results" aria-describedby="key-councils-note">
+            <table class="table national-table key-councils-table mb-0">
+              <thead>
+                <tr><th scope="col">Metro</th><th scope="col">Leading Party</th><th scope="col">Seats</th><th scope="col">Majority</th><th scope="col">Gap</th><th scope="col">Status</th></tr>
+              </thead>
+              <tbody>
+                  <tr><th scope="row">Buffalo City (EC)</th><td><span class="party-identity council-party"><span class="party-dot party-anc" aria-hidden="true"></span><img src="assets/images/anc.png" alt="" class="council-party-logo"><span>ANC</span></span></td><td>58</td><td>51</td><td class="change-up">+7</td><td><span class="council-status council-status-majority">Majority</span></td></tr>
+                  <tr><th scope="row">Nelson Mandela Bay (EC)</th><td><span class="party-identity council-party"><span class="party-dot party-da" aria-hidden="true"></span><img src="assets/images/DA.png" alt="" class="council-party-logo"><span>DA</span></span></td><td>57</td><td>61</td><td class="change-down">4 short</td><td><span class="council-status council-status-hung">Hung council</span></td></tr>
+                  <tr><th scope="row">Mangaung (FS)</th><td><span class="party-identity council-party"><span class="party-dot party-anc" aria-hidden="true"></span><img src="assets/images/anc.png" alt="" class="council-party-logo"><span>ANC</span></span></td><td>52</td><td>51</td><td class="change-up">+1</td><td><span class="council-status council-status-majority">Majority</span></td></tr>
+                  <tr><th scope="row">City of Johannesburg (GP)</th><td><span class="party-identity council-party"><span class="party-dot party-anc" aria-hidden="true"></span><img src="assets/images/anc.png" alt="" class="council-party-logo"><span>ANC</span></span></td><td>98</td><td>136</td><td class="change-down">38 short</td><td><span class="council-status council-status-developing">Developing</span></td></tr>
+                  <tr><th scope="row">City of Tshwane (GP)</th><td><span class="party-identity council-party"><span class="party-dot party-da" aria-hidden="true"></span><img src="assets/images/DA.png" alt="" class="council-party-logo"><span>DA</span></span></td><td>98</td><td>108</td><td class="change-down">10 short</td><td><span class="council-status council-status-hung">Hung council</span></td></tr>
+                  <tr><th scope="row">Ekurhuleni (GP)</th><td><span class="party-identity council-party"><span class="party-dot party-anc" aria-hidden="true"></span><img src="assets/images/anc.png" alt="" class="council-party-logo"><span>ANC</span></span></td><td>93</td><td>113</td><td class="change-down">20 short</td><td><span class="council-status council-status-developing">Developing</span></td></tr>
+                  <tr><th scope="row">eThekwini (KZN)</th><td><span class="party-identity council-party"><span class="party-dot party-anc" aria-hidden="true"></span><img src="assets/images/anc.png" alt="" class="council-party-logo"><span>ANC</span></span></td><td>110</td><td>112</td><td class="change-down">2 short</td><td><span class="council-status council-status-hung">Hung council</span></td></tr>
+                  <tr><th scope="row">City of Cape Town (WC)</th><td><span class="party-identity council-party"><span class="party-dot party-da" aria-hidden="true"></span><img src="assets/images/DA.png" alt="" class="council-party-logo"><span>DA</span></span></td><td>135</td><td>116</td><td class="change-up">+19</td><td><span class="council-status council-status-majority">Majority</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </aside>
+    <aside class="offcanvas offcanvas-start dashboard-sidebar national-sidebar" tabindex="-1" id="national-sidebar" aria-labelledby="national-sidebar-title" data-bs-backdrop="false" data-bs-scroll="true">
+      <button class="search-close" type="button" data-bs-dismiss="offcanvas" aria-label="Close national results">×</button>
+      <div class="national-sidebar-content">
+        <h2 id="national-sidebar-title" tabindex="-1">More National Results &amp; Election Information</h2>
+
+        <section class="national-leading-party" aria-labelledby="national-leading-title">
+          <h3 id="national-leading-title">Leading Party</h3>
+          <div class="national-leading-result">
+            <img src="assets/images/anc.png" alt="ANC logo">
+            <div><strong class="national-leading-name">ANC</strong>
+              <div class="national-leading-votes"><strong>45.59%</strong><span>of valid votes</span></div>
             </div>
-            <div class="progress election-progress" role="progressbar" aria-label="Votes counted" aria-valuenow="87" aria-valuemin="0" aria-valuemax="100">
-              <div class="progress-bar">
-              </div><img class="progressbar-logo" src="assets/images/progressbar_logo.png" alt="IEC South Africa">
-            </div>
+          </div>
+          <p class="national-leading-margin">Leading by 23.93%<br>over <span>DA</span></p>
+        </section>
+
             <p class="results-notice"><span class="info-icon" aria-hidden="true">i</span><span>Final Results will be published after all results are verified and confirmed.<br><button class="text-button" type="button" data-bs-toggle="collapse" data-bs-target="#results-information" aria-expanded="false" aria-controls="results-information">Read More</button></span>
             </p>
             <div class="collapse" id="results-information">
               <p class="notice-details">Results displayed here are provisional until verification and confirmation are complete.</p>
             </div>
-            <section class="leading-card" aria-labelledby="leading-title">
-              <h2 id="leading-title">Leading Party</h2>
-              <div class="lead-margin">Leading by 23.93%<br>over <span>DA</span>
-              </div>
-              <div class="leading-result"><img class="party-logo-slot" src="assets/images/anc.png" alt="" width="51" height="51">
-                <div>
-                  <h3>ANC</h3>
-                  <p><strong>45.59%</strong> <span>of valid votes</span>
-                  </p>
-                </div>
-              </div>
-            </section>
-            <nav class="row row-cols-2 row-cols-sm-4 action-grid" aria-label="Results tools">
-              <div class="col"><button class="action-tile" disabled>View Map<img class="action-icon" src="assets/images/map_icon.png" alt=""></button>
-              </div>
-              <div class="col"><button class="action-tile" disabled>Compare<br>Parties<img class="action-icon" src="assets/images/compare_parties_icon.png" alt=""></button>
-              </div>
-              <div class="col"><button class="action-tile" disabled>Historical<br>Results<img class="action-icon" src="assets/images/historical_icon.png" alt=""></button>
-              </div>
-              <div class="col"><button class="action-tile" disabled>Downloads<img class="action-icon" src="assets/images/downloads_icon.png" alt=""></button>
-              </div>
-            </nav>
             <section class="top-parties" aria-labelledby="top-parties-title">
               <div class="d-flex align-items-center justify-content-between top-parties-heading">
                 <h2 id="top-parties-title">Top Parties National</h2><button class="text-button" disabled>View All</button>
@@ -133,14 +223,12 @@
                 </table>
               </div>
             </section>
-          </section>
-        </div>
-        <section class="col-12 col-lg-8 results-column" aria-label="Detailed election results">
-          <div id="results-table" class="results-table-space">
-          </div>
-        </section>
-      </div>
-    </main>
+            <div class="legacy-statistics"></div>
+                  </div>
+    </aside>
+
+
+
     <footer id="site-footer" class="statistics-bar">
     </footer>
   </body>

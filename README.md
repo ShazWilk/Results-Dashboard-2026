@@ -46,12 +46,16 @@ All current image, stylesheet, script, and navigation paths are relative to the 
 The page intentionally reproduces the supplied design and is not connected to live election data:
 
 - Percentages, counts, party names, leading margins, election labels, the LIVE badge, and timestamps are static values in `index.html` and `components.js`. Bind these to the backend's data model. The selected example election is 2021 while the title is 2026.
-- `#results-table` is intentionally blank. Render detailed results here.
+- `#results-table` remains an empty integration target inside `.results-table-container`. Its sibling `.table-placeholder` is a decorative preview; CSS hides the preview when real content is inserted into the target. Replace `.results-map-container` contents with the real map; the current inline SVG is illustrative, with no map data or interactions.
+- The three party cards use static reference values. Existing national table markup and original summary statistics remain in the expandable “More national results & election information” section.
+- The fixed footer reuses the original progress markup and IEC assets. Completion figures are static examples from `design-reference/FinalFinal.png`; bind the `data-result-stat` hooks to real counts. The original summary values remain in the expandable section.
 - `#results-search-form` includes election, ID number, province, municipality, and party fields. Province names are example option values; map them to the API's identifiers. Municipality options remain disabled until populated from data.
 - `main.js` prevents normal form submission and displays placeholder feedback. Replace that handler with the application's search integration and provide loading, empty, and error states. The current UI makes no API requests and does not store ID numbers. If this JavaScript is omitted or fails, native form submission defaults to GET; configure deliberate submission behavior before connecting the form to real ID lookup.
 - Search opens from the rail icon and supports close, Escape, outside-click dismissal, and reset. Read More uses Bootstrap Collapse.
 - Other navigation, results tools, View All, and the header election selector remain disabled pending integration. Remaining party logo slots are placeholders.
-- The progress fill and logo marker are deliberately fixed at 69% in CSS to match the reference, while the visible and accessible progress value is 87%. When connecting live data, explicitly decide how to synchronize these values; this handover preserves the reference appearance.
+- The progress fill, logo marker, label, and accessible value now all show 87%. Update these together when connecting live data.
+- `main.js` measures the fixed header/footer with ResizeObserver and updates CSS dimensions so main content and the search drawer remain clear of the chrome. Mobile completion statistics scroll horizontally inside the footer (including keyboard access). No runtime dependencies were added.
+- The redesign follows `design-reference/FinalFinal.png`: navy ANC/DA/EFF party cards, map on the left, detailed table preview on the right, and a fixed progress footer.
 
 Keep credentials and backend secrets on the server. There is no client-side environment configuration or API endpoint to replace. Local environment files, common Visual Studio output, and certificate containers are excluded by `.gitignore`; this does not replace review of files before committing.
 
@@ -62,6 +66,8 @@ Use a modern browser. Verify the dashboard at desktop and mobile widths and exer
 The repository includes no automated build or test dependencies. JavaScript syntax can optionally be checked with `node --check assets/js/components.js` and `node --check assets/js/main.js`. Node is not needed to serve the site.
 
 Commit and push the complete handover, including the ANC image and design references, before developers clone it. Visual Studio execution and backend integration must be validated in the receiving project.
+
+Responsive redesign verification: Chromium checks passed at 1920×1080, 1366×768, 1024×768, 768×1024, and 390×844. Checks covered fixed chrome, final-content clearance, page overflow, column layout, visible/replaced placeholders, search submission/reset/province feedback, close/Escape/outside-click dismissal, focus return, Read More, retained national results, home navigation, and mobile footer scrolling. No browser JavaScript or asset errors were reported. Existing IDs, classes, and data attributes were retained.
 
 ## Optional GitHub Pages hosting
 
