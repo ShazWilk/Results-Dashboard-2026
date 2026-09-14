@@ -27,7 +27,7 @@ button, a, select { -webkit-tap-highlight-color: transparent; }
   align-items: center;
   gap: 23px;
   padding: 7px 32px 6px 18px;
-  background: var(--navy);
+  background: linear-gradient(100deg, #064ba6, #003e96);
   color: #fff;
 }
 .election-brand img {
