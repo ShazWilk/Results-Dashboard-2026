@@ -30,7 +30,11 @@
           <input class="form-control" id="search-id" name="idNumber" type="text" inputmode="numeric" pattern="[0-9]{13}" maxlength="13" title="Enter a 13-digit ID number" placeholder="Search by ID Number" autocomplete="off">
           <button type="submit" class="id-search-button" aria-label="Find results"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="8"></circle><path d="m16 16 6 6"></path></svg></button>
         </div>
-        <div class="search-filters">
+        <p class="search-or">or</p>
+        <label class="visually-hidden" for="search-party">Party abbreviation</label>
+        <input class="form-control" id="search-party" name="party" type="text" placeholder="Enter Party Abbreviation" autocomplete="off">
+        <h2 class="search-filter-title" id="search-filter-title">Filter By</h2>
+        <div class="search-filters" role="group" aria-labelledby="search-filter-title">
           <label class="visually-hidden" for="search-province">Province</label>
           <select class="form-select" id="search-province" name="province">
             <option value="">Select Province</option>
@@ -38,8 +42,6 @@
           </select>
           <label class="visually-hidden" for="search-municipality">Municipality</label>
           <select class="form-select" id="search-municipality" name="municipality" disabled><option value="">Select Municipality</option></select>
-          <label class="visually-hidden" for="search-party">Party abbreviation</label>
-          <input class="form-control" id="search-party" name="party" type="text" placeholder="Enter Party Abbreviation" autocomplete="off">
         </div>
         <button class="search-reset" type="reset">Reset Filters</button>
       </form>
